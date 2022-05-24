@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FinanceBox</string>
+    <string name="pincode_title">Pin-Code</string>
+    <string name="home_tab">Home</string>
+</resources>

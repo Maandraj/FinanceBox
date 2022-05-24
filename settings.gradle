@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "FinanceBox"
+include ':app'
+include ':auth-impl'
+include ':auth-api'
+include ':feature-api'
+include ':dependencyprovider'
+include ':onboarding-impl'
+include ':onboarding-api'
