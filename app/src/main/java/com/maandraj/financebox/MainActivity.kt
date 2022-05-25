@@ -3,15 +3,12 @@ package com.maandraj.financebox
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import com.maandraj.auth.impl.AuthFeatureImpl
 import com.maandraj.auth_api.feature.api.auth.AuthFeatureApi
-import com.maandraj.financebox.main.AppContent
+import com.maandraj.financebox.ui.main.AppContent
 import com.maandraj.financebox.ui.theme.FinanceBoxTheme
 import com.maandraj.onboarding_api.feature.api.onboarding.OnBoardingFeatureApi
-import com.maandraj.onboarding_impl.feature.impl.OnBoardingFeatureImpl
+import com.maandraj.pincode_api.api.PinCodeFeatureApi
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +18,10 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var onBoardingFeatureApi: OnBoardingFeatureApi
+
+    @Inject
+    lateinit var pinCodeFeatureApi: PinCodeFeatureApi
+
     private val appComponent by lazy {
         (application as App).appComponent
     }
@@ -32,11 +33,13 @@ class MainActivity : ComponentActivity() {
         appComponent.inject(this)
         authFeatureApi = appComponent.authFeatureApi
         onBoardingFeatureApi = appComponent.onBoardingFeatureApi
+        pinCodeFeatureApi = appComponent.pinCodeFeatureApi
 
         setContent {
             FinanceBoxTheme {
                 AppContent(onBoardingFeatureApi = onBoardingFeatureApi,
-                    authFeatureApi = authFeatureApi)
+                    authFeatureApi = authFeatureApi,
+                    pinCodeFeatureApi = pinCodeFeatureApi)
             }
         }
     }

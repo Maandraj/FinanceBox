@@ -5,12 +5,12 @@ import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.maandraj.auth_api.feature.api.auth.AuthFeatureApi
 import com.maandraj.feature_api.utils.FeatureApi
-import com.maandraj.onboarding_impl.feature.screens.OnBoardingScreenFinish
-import javax.inject.Inject
+import com.maandraj.onboarding_impl.feature.ui.finishScreen.FinishScreen
+import com.maandraj.pincode_api.api.PinCodeFeatureApi
 
 
 internal class InternalOnBoardingFeatureApi(
-    private val authFeatureApi: AuthFeatureApi,
+    private val pinCodeFeatureApi: PinCodeFeatureApi,
 ) : FeatureApi {
     private val scenarioStartFinishRoute = "onBoarding/scenarioStartFinishRoute"
     private val screenStartRoute = "onBoarding/start"
@@ -30,9 +30,9 @@ internal class InternalOnBoardingFeatureApi(
         ) {
 
             composable(route = screenFinishRoute) {
-                OnBoardingScreenFinish(
+                FinishScreen(
                     navController = navController,
-                    authFeatureApi = authFeatureApi)
+                    pinCodeFeatureApi = pinCodeFeatureApi)
             }
         }
     }

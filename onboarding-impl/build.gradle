@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 apply plugin: 'kotlin-kapt'
-
 android {
     compileSdk 32
 
@@ -46,6 +45,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    //Compose
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
@@ -53,14 +55,19 @@ dependencies {
     def nav_version = "2.4.2"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
+    //KotPref
     def kotPref_version = "2.13.1"
     implementation "com.chibatching.kotpref:kotpref:$kotPref_version"
 
+
+
+    //Include project
+    implementation project(":core")
+
     implementation project(":feature-api")
-    implementation project(":dependencyprovider")
 
-    implementation project(":onboarding-api")
-
+    implementation project(':onboarding-api')
+    implementation project(':pincode-api')
     implementation project(":auth-api")
 
     // Dagger
