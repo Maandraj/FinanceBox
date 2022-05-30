@@ -4,9 +4,9 @@ import android.app.Application
 import com.chibatching.kotpref.Kotpref
 import com.maandraj.financebox.di.AppComponent
 import com.maandraj.financebox.di.DaggerAppComponent
-import com.maandraj.onboarding_impl.feature.di.OnBoardingFinishScreenDepsStore
-import com.maandraj.pincode_impl.di.PinCodeScreenDeps
-import com.maandraj.pincode_impl.di.PinCodeScreenDepsStore
+import com.maandraj.onboarding_impl.feature.di.welcomeScreen.OnBoardingWelcomeScreenDepsStore
+import com.maandraj.pincode_impl.feature.di.pincodeMain.PinCodeScreenDepsStore
+import com.maandraj.pincode_impl.feature.di.pincodeRepeat.PinCodeRepeatScreenDepsStore
 
 class App : Application() {
     val appComponent: AppComponent by lazy {
@@ -16,8 +16,9 @@ class App : Application() {
     }
     override fun onCreate() {
         super.onCreate()
-        OnBoardingFinishScreenDepsStore.deps = appComponent
+        OnBoardingWelcomeScreenDepsStore.deps = appComponent
         PinCodeScreenDepsStore.deps = appComponent
+        PinCodeRepeatScreenDepsStore.deps = appComponent
         Kotpref.init(this)
     }
 }

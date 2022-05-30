@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pin_code_text">PIN-CODE</string>
+    <string name="pin_code_repeat_text">PIN-CODE repeated</string>
+    <string name="enter_your_pin_code">Enter your\nPIN-CODE</string>
+    <string name="enter_your_again_pin_code">Repeated your\nPIN-CODE</string>
+    <string name="pin_code_information">The PIN-CODE code will be useful for you to protect information from third parties</string>
+</resources>

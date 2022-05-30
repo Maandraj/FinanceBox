@@ -1,28 +1,21 @@
 package com.maandraj.financebox.di
 
 import android.app.Application
-import com.maandraj.auth_api.feature.api.auth.AuthFeatureApi
 import com.maandraj.financebox.MainActivity
 import com.maandraj.onboarding_api.feature.api.onboarding.OnBoardingFeatureApi
-import com.maandraj.onboarding_impl.feature.di.OnBoardingFinishScreenDeps
+import com.maandraj.onboarding_impl.feature.di.welcomeScreen.OnBoardingWelcomeScreenDeps
 import com.maandraj.pincode_api.api.PinCodeFeatureApi
-import com.maandraj.pincode_impl.di.PinCodeScreenDeps
+import com.maandraj.pincode_impl.feature.di.pincodeMain.PinCodeScreenDeps
+import com.maandraj.pincode_impl.feature.di.pincodeRepeat.PinCodeRepeatScreenDeps
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Scope
 
 @Component( modules = [AppModule::class])
 @AppScope
-interface AppComponent : OnBoardingFinishScreenDeps, PinCodeScreenDeps{
+interface AppComponent : OnBoardingWelcomeScreenDeps, PinCodeScreenDeps, PinCodeRepeatScreenDeps {
 
     fun inject(activity: MainActivity)
-
-    override val pinCodeFeatureApi: PinCodeFeatureApi
-    override val onBoardingFeatureApi: OnBoardingFeatureApi
-    override val authFeatureApi: AuthFeatureApi
-
-
-    // override val pinCodeFeatureApi: PinCodeFeatureApi
 
     @Component.Builder
     interface Builder {
@@ -31,6 +24,9 @@ interface AppComponent : OnBoardingFinishScreenDeps, PinCodeScreenDeps{
 
         fun build(): AppComponent
     }
+
+    override val pinCodeFeatureApi: PinCodeFeatureApi
+    override val onBoardingFeatureApi: OnBoardingFeatureApi
 }
 
 

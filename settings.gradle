@@ -14,12 +14,10 @@ dependencyResolutionManagement {
 }
 rootProject.name = "FinanceBox"
 include ':app'
-include ':auth-impl'
-include ':auth-api'
 include ':feature-api'
-include ':dependencyprovider'
 include ':onboarding-impl'
 include ':onboarding-api'
 include ':core'
 include ':pincode-api'
 include ':pincode-impl'
+include ':core-ui'

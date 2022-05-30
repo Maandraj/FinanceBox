@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_control_guide">Gain total control of your money</string>
+    <string name="description_control_guide">Become your own money manager and make every cent count</string>
+    <string name="titile_money_guide">Know where your money goes</string>
+    <string name="description_money_guide">\"Track your transaction easily, with categories and financial report \"</string>
+</resources>

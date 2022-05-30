@@ -1,4 +1,4 @@
-package com.maandraj.feature_api
+package com.maandraj.feature_api.utils
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder

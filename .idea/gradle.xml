@@ -11,10 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/auth-api" />
-            <option value="$PROJECT_DIR$/auth-impl" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/dependencyprovider" />
+            <option value="$PROJECT_DIR$/core-ui" />
             <option value="$PROJECT_DIR$/feature-api" />
             <option value="$PROJECT_DIR$/onboarding-api" />
             <option value="$PROJECT_DIR$/onboarding-impl" />
