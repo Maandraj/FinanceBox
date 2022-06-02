@@ -1,11 +1,12 @@
-package com.maandraj.pincode_impl.feature.screen.pincodeMain
+package com.maandraj.pincode_impl.feature.screen.main
 
 import android.util.Log
-import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -19,12 +20,14 @@ import androidx.navigation.NavHostController
 import com.maandraj.core_ui.ui.theme.h4Padding
 import com.maandraj.core_ui.ui.theme.horizontalPadding
 import com.maandraj.core_ui.ui.theme.topPadding
-import com.maandraj.core_ui.ui.simples.AppBarBack
-import com.maandraj.core_ui.ui.simples.CodeView
-import com.maandraj.core_ui.ui.simples.SimpleButton
+import com.maandraj.core_ui.simples.AppBarBack
+import com.maandraj.core_ui.simples.CodeView
+import com.maandraj.core_ui.simples.SimpleButton
+import com.maandraj.core_ui.util.PinCodeClickListener
 import com.maandraj.pincode_impl.R
 import com.maandraj.pincode_impl.feature.navigation.internal.InternalPinCodeFeatureApi
 import com.maandraj.pincode_impl.feature.navigation.internal.InternalPinCodeFeatureImpl
+import kotlinx.coroutines.delay
 
 private const val PIN_LENGTH = 5
 
@@ -35,10 +38,12 @@ fun PinCodeScreen(
     viewModel: PinCodeScreenVM,
     internalPinCodeFeatureApi: InternalPinCodeFeatureApi,
 ) {
-
     val focusManager = LocalFocusManager.current
-    val (pincode, setPincode) = rememberSaveable { mutableStateOf("") }
-    val (isError, setIsError) = rememberSaveable { mutableStateOf(false) }
+    val (pincode, setPincode) = remember { mutableStateOf("") }
+    val (isError, setIsError) = remember { mutableStateOf(false) }
+    val (isFinal, setIsFinal) = remember { mutableStateOf(false) }
+    val clickListener = PinCodeClickListener.Base { setIsError(false) }
+
     Scaffold(
 
         topBar = {
@@ -64,12 +69,15 @@ fun PinCodeScreen(
 
                     CodeView(codeLength = PIN_LENGTH,
                         isError = isError,
-                        whenClickCell = {
-                            setIsError(false)
-                        },
+                        onClickListener = clickListener,
+                        isFinal = isFinal,
                         whenFull = { pin ->
                             Log.i(TAG, "PinCode - $pin")
                             setPincode(pin)
+                        }, animateFinish = {
+                            if (it)
+                                navController.navigate(internalPinCodeFeatureApi.screenPinCodeRoute(
+                                    pincode))
                         })
 
                     Text(
@@ -79,27 +87,26 @@ fun PinCodeScreen(
                     )
 
                 }
-
-
-                    SimpleButton(
-                        text = stringResource(id = com.maandraj.core.R.string.continue_text),
-                        modifier = Modifier
-                            .wrapContentHeight()
-                            .fillMaxWidth(.9f)
-                            .padding(top = topPadding.dp),
-                    ) {
-                        if (pincode.length < PIN_LENGTH) {
-                            setIsError(true)
-                            return@SimpleButton
-                        }
-                        navController.navigate(internalPinCodeFeatureApi.screenPinCodeRoute(pincode))
+                SimpleButton(
+                    text = stringResource(id = com.maandraj.core_ui.R.string.continue_text),
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth(.9f)
+                        .padding(top = topPadding.dp),
+                ) {
+                    if (pincode.length < PIN_LENGTH) {
+                        setIsError(true)
+                        setIsFinal(false)
+                        return@SimpleButton
                     }
+                    setIsFinal(true)
                 }
+            }
 
 
         })
-
 }
+
 
 @Composable
 @Preview(showBackground = true)

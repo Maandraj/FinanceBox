@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="continue_text">Далее</string>
+    <string name="finish_text">Завершить</string>
+    <string name="back_text">Назад</string>
+</resources>

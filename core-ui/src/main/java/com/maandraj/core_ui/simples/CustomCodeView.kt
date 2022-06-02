@@ -1,8 +1,7 @@
-package com.maandraj.core_ui.ui.simples
+package com.maandraj.core_ui.simples
 
+import android.util.Log
 import androidx.compose.animation.Animatable
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -23,7 +23,11 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import com.maandraj.core_ui.ui.theme.defButtonShape
+import com.maandraj.core_ui.util.PinCodeClickListener
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 private const val TAG = "CodeView"
 private const val CELL_HEIGHT = 60
@@ -39,13 +43,13 @@ private const val CELL_WIDTH = 60
 @Composable
 fun CodeView(
     codeLength: Int,
+    isFinal :Boolean,
     isError: Boolean = false,
+    onClickListener: PinCodeClickListener,
     whenFull: (code: String) -> Unit,
-    whenClickCell: () -> Unit,
+    animateFinish: (loading: Boolean) -> Unit,
 ) {
     val (editValue, setEditValue) = remember { mutableStateOf("") }
-    val (isFinal, setIsFinal) = remember { mutableStateOf(false) }
-    val originalOffset = IntOffset(x = 0, y = 0)
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
 
@@ -59,12 +63,11 @@ fun CodeView(
             if (!it.isDigitsOnly())
                 return@OutlinedTextField
             if (it.length <= codeLength) {
-                whenClickCell()
+                onClickListener.onClickCell()
                 setEditValue(it)
             }
             if (it.length >= codeLength) {
                 setEditValue(it)
-                setIsFinal(true)
                 whenFull(it)
                 keyboard?.hide()
             }
@@ -81,21 +84,17 @@ fun CodeView(
     ) {
         (0 until codeLength).map { index ->
             val modifier = Modifier
-
-            val sumValue: Float = 1 / codeLength.toFloat()
-            val centerValue: Float = 1 / codeLength.toFloat()
-            val divValue: Float = index / codeLength.toFloat()
-            if (1.0f - divValue == sumValue) {
-                //TODO ЛОГИКА ДЛЯ АНИМАЦИИ В ЦЕНТР
-            }
-
-            val targetOffset = IntOffset(x = 60, y = 0)
+            val originalOffset = IntOffset(x = 0, y = 0)
+            val targetOffset = IntOffset(x = 500, y = 0)
             val offset by animateIntOffsetAsState(targetValue = if (isFinal) targetOffset else originalOffset,
-                tween(durationMillis = 1000, easing = FastOutSlowInEasing))
+                tween(durationMillis = 200, easing = FastOutLinearInEasing)){
+                Log.i(TAG, "offset ${it.x}")
+                animateFinish(it.x == targetOffset.x)
+            }
 
             CodeCell(
                 modifier = modifier
-                    .offset(offset.x.dp * (codeLength - index), offset.y.dp)
+                    .offset(offset.x.dp, offset.y.dp)
                     .weight(1f)
                     .size(height = CELL_HEIGHT.dp,
                         width = CELL_WIDTH.dp),
@@ -103,10 +102,11 @@ fun CodeView(
                 isCursorVisible = editValue.length == index,
                 isError = isError,
                 onClick = {
-                    whenClickCell()
+                    onClickListener.onClickCell()
                     focusRequester.requestFocus()
                     keyboard?.show()
-                }
+                },
+                isEnable = !isFinal
             )
             Spacer(modifier = Modifier.size(12.dp))
         }
@@ -119,6 +119,7 @@ private fun CodeCell(
     modifier: Modifier,
     value: String,
     isError: Boolean,
+    isEnable : Boolean,
     isCursorVisible: Boolean = false,
     onClick: () -> Unit,
 ) {
@@ -140,18 +141,18 @@ private fun CodeCell(
 
     LaunchedEffect(key1 = cursorSymbol, isCursorVisible) {
         if (isCursorVisible) {
-
             delay(150)
             setCursorSymbol("_")
-
         }
     }
 
 
-    OutlinedButton(onClick = onClick,
+    OutlinedButton(
         modifier = modifier
             .border(1.dp, color = animateColor.asState().value)
-            .background(Color.Transparent)
+            .background(Color.Transparent),
+        onClick = onClick,
+        enabled = isEnable
     ) {
 
         Box(Modifier.fillMaxSize()) {

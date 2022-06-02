@@ -1,4 +1,4 @@
-package com.maandraj.core_ui.ui.simples
+package com.maandraj.core_ui.simples
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape

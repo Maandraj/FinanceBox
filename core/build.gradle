@@ -49,7 +49,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     def kotPref_version = "2.13.1"
-    implementation "com.chibatching.kotpref:kotpref:$kotPref_version"
+    api "com.chibatching.kotpref:kotpref:$kotPref_version"
 
     //Compose
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"

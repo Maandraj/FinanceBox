@@ -12,10 +12,9 @@ import com.maandraj.pincode_api.api.PinCodeFeatureApi
 import com.maandraj.pincode_impl.feature.di.pincodeMain.DaggerPinCodeScreenComponent
 import com.maandraj.pincode_impl.feature.di.pincodeMain.PinCodeScreenDepsStore
 import com.maandraj.pincode_impl.feature.navigation.internal.InternalPinCodeFeatureImpl
-import com.maandraj.pincode_impl.feature.screen.pincodeMain.PinCodeScreen
-import javax.inject.Inject
+import com.maandraj.pincode_impl.feature.screen.main.PinCodeScreen
 
-class PinCodeFeatureImpl @Inject constructor(
+class PinCodeFeatureImpl (
 ) : PinCodeFeatureApi {
 
 
@@ -38,7 +37,7 @@ class PinCodeFeatureImpl @Inject constructor(
             PinCodeScreen(
                 navController = navController,
                 viewModel = viewModel,
-                internalPinCodeFeatureApi = internalPinCodeFeatureImpl
+                internalPinCodeFeatureApi = internalPinCodeFeatureImpl,
             )
         }
 

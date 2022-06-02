@@ -1,6 +1,6 @@
 package com.maandraj.pincode_impl.feature.di.pincodeMain
 
-import com.maandraj.pincode_impl.feature.screen.pincodeMain.PinCodeScreenVM
+import com.maandraj.pincode_impl.feature.screen.main.PinCodeScreenVM
 import dagger.Module
 import dagger.Provides
 

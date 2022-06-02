@@ -2,7 +2,7 @@ package com.maandraj.pincode_impl.feature.di.pincodeMain
 
 import androidx.annotation.RestrictTo
 import com.maandraj.onboarding_api.feature.api.onboarding.OnBoardingFeatureApi
-import com.maandraj.pincode_impl.feature.screen.pincodeMain.PinCodeScreenVM
+import com.maandraj.pincode_impl.feature.screen.main.PinCodeScreenVM
 import dagger.Component
 import javax.inject.Scope
 import kotlin.properties.Delegates

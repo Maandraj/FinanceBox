@@ -3,7 +3,7 @@ package com.maandraj.pincode_impl.feature.navigation.internal
 import androidx.compose.ui.Modifier
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.maandraj.pincode_impl.feature.screen.pincodeRepeat.PinCodeRepeatScreen
+import com.maandraj.pincode_impl.feature.screen.repeat.PinCodeRepeatScreen
 
 
 internal class InternalPinCodeFeatureImpl() : InternalPinCodeFeatureApi {
@@ -33,8 +33,7 @@ internal class InternalPinCodeFeatureImpl() : InternalPinCodeFeatureApi {
                 val arguments = backStackEntry.arguments
                 val argument = arguments?.getString(pincodeParameter)
                 PinCodeRepeatScreen(navController = navController,
-                    modifier = modifier,
-                    pincode = argument)
+                    pincodeArg = argument)
             }
         }
     }

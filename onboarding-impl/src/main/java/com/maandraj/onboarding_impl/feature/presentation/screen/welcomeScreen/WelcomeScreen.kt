@@ -1,7 +1,6 @@
 package com.maandraj.onboarding_impl.feature.presentation.screen.welcomeScreen
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -20,7 +19,7 @@ import com.google.accompanist.pager.*
 import com.maandraj.core_ui.ui.theme.h2Padding
 import com.maandraj.core_ui.ui.theme.h4Padding
 import com.maandraj.core_ui.ui.theme.horizontalPadding
-import com.maandraj.core_ui.ui.simples.SimpleButton
+import com.maandraj.core_ui.simples.SimpleButton
 import com.maandraj.onboarding_impl.feature.util.OnBoardingPage
 import com.maandraj.pincode_api.api.PinCodeFeatureApi
 
@@ -93,7 +92,7 @@ private fun FinishButton(
 
             SimpleButton(
                 modifier = Modifier.padding(horizontal = 15.dp),
-                text = stringResource(id = com.maandraj.core.R.string.continue_text),
+                text = stringResource(id = com.maandraj.core_ui.R.string.continue_text),
             ) {
                 if (isEnable)
                     onClick()

@@ -1,6 +1,5 @@
 package com.maandraj.financebox.main
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -10,6 +9,24 @@ import com.maandraj.onboarding_api.feature.api.onboarding.OnBoardingFeatureApi
 import com.maandraj.pincode_api.api.PinCodeFeatureApi
 
 
+@Composable
+fun MainNavGraph(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    pinCodeFeatureApi: PinCodeFeatureApi,
+    startDestination : String,
+    ) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        register(
+            pinCodeFeatureApi,
+            navController = navController,
+            modifier = modifier
+        )
+    }
+}
 @Composable
 fun GuideNavGraph(
     modifier: Modifier = Modifier,
@@ -27,25 +44,6 @@ fun GuideNavGraph(
             modifier = modifier
         )
 
-        register(
-            pinCodeFeatureApi,
-            navController = navController,
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
-fun UnGuideNavGraph(
-    modifier: Modifier = Modifier,
-    navController: NavHostController,
-    pinCodeFeatureApi: PinCodeFeatureApi
-    ) {
-    NavHost(
-        navController = navController,
-        startDestination = pinCodeFeatureApi.route()
-
-    ) {
         register(
             pinCodeFeatureApi,
             navController = navController,

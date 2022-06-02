@@ -1,4 +1,4 @@
-package com.maandraj.pincode_impl.feature.screen.pincodeMain
+package com.maandraj.pincode_impl.feature.screen.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

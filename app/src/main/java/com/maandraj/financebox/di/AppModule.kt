@@ -1,5 +1,6 @@
 package com.maandraj.financebox.di
 
+import com.maandraj.core.storage.ConfigPref
 import com.maandraj.onboarding_api.feature.api.onboarding.OnBoardingFeatureApi
 import com.maandraj.onboarding_impl.feature.navigation.impl.OnBoardingFeatureImpl
 import com.maandraj.pincode_api.api.PinCodeFeatureApi

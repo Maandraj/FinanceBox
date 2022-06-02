@@ -21,7 +21,7 @@ import com.maandraj.pincode_impl.feature.navigation.impl.PinCodeFeatureImpl
 @Composable
 fun AppContent(
     onBoardingFeatureApi: OnBoardingFeatureApi,
-    pinCodeFeatureApi : PinCodeFeatureApi
+    pinCodeFeatureApi: PinCodeFeatureApi,
 ) {
     ProvideWindowInsets {
         FinanceBoxTheme() {
@@ -30,13 +30,15 @@ fun AppContent(
             Scaffold(
                 bottomBar = { BottomBar(navController = navController, tabs) }
             ) { innerPaddingModifier ->
-                if (ConfigPref.guideComplete)
-                    UnGuideNavGraph(
+                if (!ConfigPref.pincode.isNullOrEmpty()) {
+                    val startDestination = pinCodeFeatureApi.route()
+                    MainNavGraph(
                         navController = navController,
                         modifier = Modifier.padding(innerPaddingModifier),
-                        pinCodeFeatureApi = pinCodeFeatureApi
+                        pinCodeFeatureApi = pinCodeFeatureApi,
+                        startDestination = startDestination
                     )
-                else
+                } else
                     GuideNavGraph(
                         navController = navController,
                         modifier = Modifier.padding(innerPaddingModifier),
@@ -47,11 +49,11 @@ fun AppContent(
         }
     }
 }
+
 @Composable
 @Preview
-private fun PreviewAppContent(){
-
-   val  onBoardingFeatureApi: OnBoardingFeatureApi = OnBoardingFeatureImpl()
-    val pinCodeFeatureApi : PinCodeFeatureApi  = PinCodeFeatureImpl()
-    AppContent(onBoardingFeatureApi =onBoardingFeatureApi , pinCodeFeatureApi = pinCodeFeatureApi)
+private fun AppContentPreview() {
+    val onBoardingFeatureApi: OnBoardingFeatureApi = OnBoardingFeatureImpl()
+    val pinCodeFeatureApi: PinCodeFeatureApi = PinCodeFeatureImpl()
+    AppContent(onBoardingFeatureApi = onBoardingFeatureApi, pinCodeFeatureApi = pinCodeFeatureApi)
 }
